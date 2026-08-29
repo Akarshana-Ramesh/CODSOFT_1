@@ -1,0 +1,47 @@
+NUMBER GUESSING GAME
+
+
+
+#include <iostream>
+#include <random>
+
+using namespace std;
+
+int main() {
+    
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<int> dist(1, 100);
+
+    int secret_number = dist(gen);
+    int guess = 0;
+    int attempts = 0;
+
+    cout << "Welcome to the Number Guessing Game!\n";
+    cout << "I'm thinking of a number between 1 and 100.\n\n";
+
+    while (guess != secret_number) {
+        cout << "Enter your guess: ";
+        
+        // Handle non-integer inputs gracefully
+        if (!(cin >> guess)) {
+            cout << "Please enter a valid integer.\n\n";
+            cin.clear();
+            cin.ignore(10000, '\n');
+            continue;
+        }
+
+        attempts++;
+
+        if (guess < secret_number) {
+            cout << "Too low! Try again.\n\n";
+        } else if (guess > secret_number) {
+            cout << "Too high! Try again.\n\n";
+        } else {
+            cout << "Congratulations! You guessed the correct number " 
+                 << secret_number << " in " << attempts << " attempts.\n";
+        }
+    }
+
+    return 0;
+}
